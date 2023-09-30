@@ -11,10 +11,11 @@ const checkSessionToken = () => {
   var sessionToken = sessionStorage.getItem('sessionToken');
 
   if (sessionToken) {
-      return true;
+    return true;
   } else {
-      window.location.href = "/login";
-      return false;
+    const pathname = window.location.pathname;
+    window.location.href = `${pathname}/login`;
+    return false;
   }
 }
 
