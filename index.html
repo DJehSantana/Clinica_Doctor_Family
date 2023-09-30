@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./src/style.css">
+  <title>Home</title>
+</head>
+
+<body>
+  <header>
+    <img src="./assets/icon-clinic.png" class="header-icon"><h1>Clínica Doctor Family</h1>
+  </header>
+
+  <main id="main">
+
+    <div class="background-container">
+
+      <div class="form-container">
+
+        <form name="registroPacientes" id="registroPacientes">
+          <fieldset>
+            <legend>Registro de Pacientes</legend>
+            <input type="hidden" name="action" value="save">
+
+            <div class="form-group">
+              <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome completo" required>
+            </div>
+
+            <div class="form-group">
+              <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
+            </div>
+
+            <div class="form-group">
+              <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="Telefone" required>
+            </div>
+
+            <div class="form-group">
+              <input type="text" class="form-control" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                title="Por favor, insira o CPF no formato 000.000.000-00" placeholder="000.000.000-00" required>
+            </div>
+
+            <div class="form-group">
+              <label for="data_nascimento">Data de nascimento:</label>
+              <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
+            </div>
+
+            <div class="form-group">
+              <input type="radio" name="genero" value="M" id="masculino">
+              <label for="masculino">Masculino</label>
+              <input type="radio" name="genero" value="F" id="feminino">
+              <label for="feminino">Feminino</label>
+            </div>
+
+            <div class="form-group">
+              <label for="plano_saude">Plano de saúde:</label>
+              <select name="plano_saude" id="plano_saude">
+                <option value="nenhum" selected>Nenhum</option>
+                <option value="empresarial">Empresarial</option>
+                <option value="familiar">Familiar</option>
+                <option value="particular">Particular</option>
+                <option value="empresarial_plus">Empresarial Plus</option>
+                <option value="familiar_gold">Familiar Gold</option>
+              </select>
+            </div>
+
+            <button type="submit" id="sendButton" class="btn">Salvar</button>
+            <button type="reset" id="resetButton" class="btn btn-reset">Limpar</button>
+          </fieldset>
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+
+  <div class="table-container">
+    <table class="patients-table" id="patientsTable">
+      <thead>
+        <tr>
+          <th>Nome completo</th>
+          <th>CPF</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Data de nascimento</th>
+          <th>Gênero</th>
+          <th>Plano de saúde</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+  </div>
+
+  <div id="modal" class="modal">
+    <!-- Conteúdo do modal-->
+    <div class="modal-content">
+      <div id="imageContainer"></div>
+      <div class="patients-info-container">
+        <div id="patientsInfo" ></div>
+        <div>
+          <button id="btnUpdate" class="buttons-modal">Editar</button>
+          <button id="btnDelete" class="buttons-modal">Apagar</button>
+          <button id="btnCancel" class="buttons-modal">Sair</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="./src/main.js" type="module"></script>
+
+</body>
+
+</html>

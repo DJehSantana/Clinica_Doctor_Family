@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Croissant+One&family=Source+Code+Pro&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  font-family: 'Croissant One', cursive;
+  padding: 1.5rem;
+  color: #f2f2f2;
+  background-color: #6CBAD9;
+}
+
+.header-icon {
+  margin-right: 1rem;
+  width: 50px;
+}
+
+fieldset {
+  padding: 3rem;  
+  color: #444;
+  border-color: #85A0A6;
+  border-radius: 10px;
+}
+
+legend {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.form-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.form-group {
+  width: 100%;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 5px;
+  padding: 12px 20px;  
+  background-color: #E9F1F2;
+  border: 1px solid #85A0A6;
+  border-radius: 10px;
+}
+
+.form-control:focus {
+  outline: none;
+}
+
+.form-group select {
+  -webkit-appearance: none;
+  /* Remove estilo padrão do Chrome */
+  -moz-appearance: none;
+  /* Remove estilo padrão do FireFox */
+  appearance: none;
+  /* Remove estilo padrão do FireFox*/
+  width: 250px;  
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #444;
+}
+
+.form-group select:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="radio"] {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Chrome, Safari, Opera */
+  transform: scale(1.5);
+  font-size: 1.2rem;
+  margin-right: 4px;
+  margin-left: 8px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.btn {
+  text-align: center;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #f2f2f2;
+  padding: 12px 20px;
+  margin-top: 2rem;
+  margin-right: 0.5rem;
+  background-color: #6CBAD9;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}
+
+.btn-reset {
+  background-color: #f2f2f2;
+  border: 1px solid #6CBAD9;
+  color: #6CBAD9;
+}
+
+.patients-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  color: #444;
+  border: 1px solid #f2f2f2;
+  letter-spacing: 0.1rem;
+  text-align: left;
+  line-height: 20px;
+  margin: 0 0 70px 0;
+}
+
+.patients-table thead th {
+  background-color: #6CBAD9;
+  color: #f2f2f2;
+  font-size: 1rem;
+  padding: 1rem;
+  text-transform: uppercase;
+}
+
+.patients-table tbody td {
+  border-bottom: 1px solid #f2f2f2;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+.patients-table tbody tr:nth-child(even) {
+  background-color: #D5EDF2;
+}
+
+.patients-table tbody tr:hover td {
+  background-color: #C1D4D9;
+}
+
+.background-container {
+  background-color: #E9F1F2;
+  position: relative;
+  width: 100vw;
+  transition: margin-right 0.5s;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
+.error-message {
+  color: #BF0426;
+}
+
+/*Estilos do Modal*/
+
+.modal {
+  display: none;
+  font-size: 1rem;
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 520px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  display: flex;
+  justify-content: center;
+  padding: 20px;  
+  border-radius: 1rem;
+  border: 1px solid #888;
+}
+
+.buttons-modal {
+  font-size: 1rem;
+  color: white;
+  padding: 0.5rem;
+  width: 80px;
+  margin-left: 4px;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.buttons-modal:hover {
+  opacity: 0.7;
+}
+
+.patients-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.image-patients {
+  width: 150px;
+  height: 180px;
+  border-radius: 1rem;
+  margin-right: 2rem;
+}
+
+.open-modal {
+  display: block;
+}
+
+.modal-background {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.1);
+}
+
+#btnUpdate {
+  background-color: #6CBAD9;
+}
+
+#btnCancel {
+  background-color: #f2f2f2;
+  border: 1px solid #6CBAD9;
+  color: #6CBAD9;
+}
+
+#btnDelete {
+  background-color: #D9415D;
+}
+
+@media screen and (max-width: 600px) {
+  .patients-table thead {
+    display: none;
+  }
+
+  .patients-table tr:nth-of-type(2n) {
+    background-color: unset;
+  }
+
+  .patients-table tr td:first-child {
+    background: #f2f2f2;
+    font-weight: bold;
+    font-size: 1.3em;
+  }
+
+  .patients-table tbody td {
+    display: block;
+    text-align: right;
+  }
+
+  .patients-table tbody td:before {
+    content: attr(data-th);
+    float: left;
+    text-transform: uppercase;
+  }
+
+  .form-control {
+    width: 100%;
+  }
+
+  .modal {
+    width: 100vw;
+  }
+}
