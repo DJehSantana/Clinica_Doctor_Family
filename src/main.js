@@ -14,7 +14,7 @@ const checkSessionToken = () => {
     return true;
   } else {
     const pathname = window.location.pathname;
-    window.location.href = `${pathname}/login`;
+    window.location.href = 'https://github.com/DJehSantana/Clinica_Doctor_Family/login';
     return false;
   }
 }
