@@ -13,7 +13,7 @@ const checkSessionToken = () => {
   if (sessionToken) {
       return true;
   } else {
-      window.location.href = "/Clinica_Doctor_Family/login";
+      window.location.href = "/login";
       return false;
   }
 }
