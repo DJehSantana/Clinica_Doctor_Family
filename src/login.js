@@ -12,7 +12,7 @@ btnLogin.addEventListener('click', async () => {
     alert('Usuário ou Senha incorretos!');
   } 
   const pathname = window.location.pathname;
-  window.location.href = `${pathname}/`;
+  window.location.href = `${pathname}/index`;
 });
 
 const createSessionToken = () => {
