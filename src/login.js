@@ -11,8 +11,7 @@ btnLogin.addEventListener('click', async () => {
   if(!result) {
     alert('Usuário ou Senha incorretos!');
   } 
-  const pathname = window.location.pathname;
-  window.location.href = 'https://github.com/DJehSantana/Clinica_Doctor_Family/index';
+  window.location.href = 'https://djehsantana.github.io/Clinica_Doctor_Family/index';
 });
 
 const createSessionToken = () => {

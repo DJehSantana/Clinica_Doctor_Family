@@ -13,8 +13,7 @@ const checkSessionToken = () => {
   if (sessionToken) {
     return true;
   } else {
-    const pathname = window.location.pathname;
-    window.location.href = 'https://github.com/DJehSantana/Clinica_Doctor_Family/login';
+    window.location.href = 'https://djehsantana.github.io/Clinica_Doctor_Family/login';
     return false;
   }
 }
