@@ -1,4 +1,6 @@
+import { createPatient, deletePatient, getPatientById, updatePatient } from "./apiCrud.js";
 import { renderData } from "./table.js";
+import { validateFields } from "./validators.js";
 
 const onInit = () => {
   checkSessionToken();
@@ -13,7 +15,7 @@ const checkSessionToken = () => {
   if (sessionToken) {
     return true;
   } else {
-    window.location.href = 'https://djehsantana.github.io/Clinica_Doctor_Family/login';
+    window.location.href = 'https://djehsantana.github.io/Clinica_Doctor_Family';
     return false;
   }
 }
@@ -48,11 +50,14 @@ sendButton.addEventListener('click', function (event) {
   //Procura por um cadastro com o mesmo cpf
   const indexPaciente = pacientes.findIndex(paciente => paciente.cpf === cpf.value);
 
-  console.log(indexPaciente);
-
   if (indexPaciente != -1) {
-    console.log(indexPaciente);
-    pacientes[indexPaciente] = {
+
+    let updatedPatient = pacientes[indexPaciente];
+
+    console.log(updatedPatient);
+
+    updatedPatient = {
+      idCrud: updatedPatient.idCrud,
       nome: nome.value,
       cpf: cpf.value,
       email: email.value,
@@ -62,13 +67,20 @@ sendButton.addEventListener('click', function (event) {
       planoSaude: plano_saude.value
     };
 
+    pacientes[indexPaciente] = updatedPatient;
+
     localStorage.setItem('pacientes', JSON.stringify(pacientes));
+    const result = updatePatient(updatedPatient.idCrud, updatedPatient);
+
+    console.log(result);
+
     registroPacientes.reset();
     return;
   }
 
   //Caso não tenha nenhum registro com o cpf, cria um novo registro
   const novoPaciente = {
+    idCrud: null,
     nome: nome.value,
     cpf: cpf.value,
     email: email.value,
@@ -78,9 +90,15 @@ sendButton.addEventListener('click', function (event) {
     planoSaude: plano_saude.value
   };
 
- 
-  pacientes.push(novoPaciente);
-  localStorage.setItem('pacientes', JSON.stringify(pacientes));
+  //persiste os dados no CRUD CRUD
+  createPatient(novoPaciente).then((data) => {
+    novoPaciente.idCrud = data._id;    
+    console.log(novoPaciente);
+
+    pacientes.push(novoPaciente);
+    console.log(pacientes);
+    localStorage.setItem('pacientes', JSON.stringify(pacientes));
+  });
 
   registroPacientes.reset();
 });
@@ -90,6 +108,11 @@ document.getElementById('patientsTable').addEventListener('click', function (e) 
   const rowIndex = e.target.parentNode.rowIndex - 1; // subtrai 1 para desconsiderar o cabeçalho da tabela
   const pacientes = JSON.parse(localStorage.getItem('pacientes')) || [];
   const paciente = pacientes[rowIndex];
+
+  getPatientById(paciente.idCrud).then((data) => {
+    console.log(data);
+  })
+
   openModal(paciente);
 });
 
@@ -97,9 +120,15 @@ setInterval(renderData, 5000);
 
 const deletePaciente = (cpf) => {
   const pacientes = JSON.parse(localStorage.getItem('pacientes')) || [];
-  console.log(cpf);
+
+  console.log(pacientes);
+  const paciente = pacientes.find(p => p.cpf === cpf);
+
+  //Remove registro do CRUD CRUD
+  const resp = deletePatient(paciente.idCrud);
+  console.log(resp);
+
   const updatedPacientes = pacientes.filter(paciente => paciente.cpf !== cpf);
-  console.log(updatedPacientes);
   localStorage.setItem('pacientes', JSON.stringify(updatedPacientes));
   closeModal();
 }
@@ -112,10 +141,13 @@ const updatePaciente = (cpf) => {
   const paciente = pacientes.find(paciente => paciente.cpf == cpf);
   if (!paciente) {
     console.error('Paciente não encontrado');
-    return;
+    alert('Paciente não encontrado!');
   }
+
+  console.log(paciente);
+
   const genero = paciente.genero == 'M' ? 'masculino' : 'feminino';
-  console.log(genero);
+
   // Preenche o formulário com os dados do paciente
   const form = document.forms.registroPacientes;
   form.nome.value = paciente.nome;
@@ -127,31 +159,6 @@ const updatePaciente = (cpf) => {
   
   console.log(form[genero]);
   form[genero].checked = true;
-}
-
-const validateFields = (fields) => {
-  const fieldNames = ['Nome completo', 'E-mail', 'Telefone', 'CPF', 'Data de nascimento', 'Gênero', 'Plano de saúde'];
-  let isValid = true;
-
-  fields.forEach((campo, index) => {
-    // Remover a mensagem de erro caso houver
-    const mensagemErroExistente = campo.parentNode.querySelector('.error-message');
-    if (mensagemErroExistente) {
-      campo.parentNode.removeChild(mensagemErroExistente);
-    }
-
-    // Se o campo estiver vazio ou se nenhum botão de opção estiver selecionado exibe uma mensagem de erro
-    if (!campo.value || (Array.isArray(campo) && !campo.some(radio => radio.checked))) {
-      const mensagemErro = document.createElement('p');
-      mensagemErro.textContent = `${fieldNames[index]} é obrigatório!`;
-      mensagemErro.classList.add('error-message');
-      campo.parentNode.insertBefore(mensagemErro, campo.nextSibling);
-      isValid = false;
-    }
-  });
-
-  return isValid;
-
 }
 
 const openModal = (paciente) => {

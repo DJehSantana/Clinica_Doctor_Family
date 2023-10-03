@@ -16,7 +16,7 @@ A aplicação possui as seguintes funcionalidades:
 
 Para usar a aplicação, basta seguir os seguintes passos:
 
-- Acesse a página da aplicação no seu navegador de preferência, através do link da hospedagem:
+- Acesse a página da aplicação no seu navegador de preferência, através do link da hospedagem: [DoctorFamily](https://djehsantana.github.io/Clinica_Doctor_Family/) 
 - Faça o Login na aplicação com as credenciais: usuario: admin, senha: admin
 - Preencha o formulário com os dados de um paciente e clique no botão "Salvar". Você verá que os dados foram adicionados à tabela.
 - Crie quantos pacientes quiser, seguindo o mesmo procedimento. Você também pode editar ou deletar um paciente, clicando no cadastro do paciente na tabela.
