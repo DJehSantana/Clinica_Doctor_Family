@@ -15,7 +15,7 @@ const checkSessionToken = () => {
   if (sessionToken) {
     return true;
   } else {
-    window.location.href = 'https://djehsantana.github.io/Clinica_Doctor_Family';
+    window.location.href = 'https://djehsantana.github.io/Clinica_Doctor_Family/login';
     return false;
   }
 }
