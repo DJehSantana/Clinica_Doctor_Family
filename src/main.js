@@ -223,7 +223,7 @@ btnCancel.addEventListener('click', () => closeModal());
 
 iconLogoff.addEventListener('click', () => {
   sessionStorage.clear();
-  window.location.replace('/login.html');
+  window.location.replace('https://djehsantana.github.io/Clinica_Doctor_Family/login');
 });
 
 
