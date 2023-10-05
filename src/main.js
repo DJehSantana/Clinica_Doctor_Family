@@ -91,14 +91,22 @@ sendButton.addEventListener('click', function (event) {
   };
 
   //persiste os dados no CRUD CRUD
-  createPatient(novoPaciente).then((data) => {
-    novoPaciente.idCrud = data._id;    
-    console.log(novoPaciente);
+  try {
+    createPatient(novoPaciente).then((data) => {
+      novoPaciente.idCrud = data._id;
+      console.log(novoPaciente);
+    });
 
-    pacientes.push(novoPaciente);
-    console.log(pacientes);
-    localStorage.setItem('pacientes', JSON.stringify(pacientes));
-  });
+  } catch (error) {
+    console.log(error.message);
+  } finally {
+    //caso a API do CRUD CRUD não esteja disponível, armazena um ID aleatório
+    if (!novoPaciente.idCrud) {
+      novoPaciente.idCrud = Math.floor(Math.random() * 100000000);
+      pacientes.push(novoPaciente);
+      localStorage.setItem('pacientes', JSON.stringify(pacientes));
+    }
+  }
 
   registroPacientes.reset();
 });
@@ -212,6 +220,11 @@ btnUpdate.addEventListener('click', () =>{
 });
 
 btnCancel.addEventListener('click', () => closeModal());
+
+iconLogoff.addEventListener('click', () => {
+  sessionStorage.clear();
+  window.location.replace('/login.html');
+});
 
 
 
