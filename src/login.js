@@ -11,6 +11,7 @@ btnLogin.addEventListener('click', async () => {
   if(!result) {
     alert('Usuário ou Senha incorretos!');
   } 
+  // rodando localmente substituir por: '/index.html' ou '/'
   window.location.href = 'https://djehsantana.github.io/Clinica_Doctor_Family/index';
 });
 

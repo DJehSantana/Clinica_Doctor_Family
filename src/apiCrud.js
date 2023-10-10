@@ -1,4 +1,4 @@
-const URL = "https://crudcrud.com/api/087e696fc4264d7ea6cff4bbfba07c9e/pacientes";
+const URL = "https://crudcrud.com/api/3a2e9a48b2d64b60a24a7a5e2b2ad5df/pacientes";
 
 export async function getPatients() {
   const response = await fetch(URL);

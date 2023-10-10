@@ -15,6 +15,7 @@ const checkSessionToken = () => {
   if (sessionToken) {
     return true;
   } else {
+    // rodando localmente, substituir por: /login.html
     window.location.href = 'https://djehsantana.github.io/Clinica_Doctor_Family/login';
     return false;
   }
@@ -95,17 +96,19 @@ sendButton.addEventListener('click', function (event) {
     createPatient(novoPaciente).then((data) => {
       novoPaciente.idCrud = data._id;
       console.log(novoPaciente);
-    });
-
-  } catch (error) {
-    console.log(error.message);
-  } finally {
-    //caso a API do CRUD CRUD não esteja disponível, armazena um ID aleatório
-    if (!novoPaciente.idCrud) {
-      novoPaciente.idCrud = Math.floor(Math.random() * 100000000);
+    }).catch((error) => {
+      //Caso a API do CRUD CRUD não esteja disponível, atribuirá um id aleatório
+      if (!novoPaciente.idCrud) {
+        novoPaciente.idCrud = Math.floor(Math.random() * 100000000);
+      }
+      console.log(error);
+    }).finally(() => {   
+      //Após resolvida a promisse, independente de sucesso ou falha, armazenará o novo paciente no localStorage   
       pacientes.push(novoPaciente);
       localStorage.setItem('pacientes', JSON.stringify(pacientes));
-    }
+    });
+  } catch (error) {
+    console.log(error.message);
   }
 
   registroPacientes.reset();
@@ -117,6 +120,7 @@ document.getElementById('patientsTable').addEventListener('click', function (e) 
   const pacientes = JSON.parse(localStorage.getItem('pacientes')) || [];
   const paciente = pacientes[rowIndex];
 
+  console.log(paciente.idCrud);
   getPatientById(paciente.idCrud).then((data) => {
     console.log(data);
   })
@@ -223,6 +227,7 @@ btnCancel.addEventListener('click', () => closeModal());
 
 iconLogoff.addEventListener('click', () => {
   sessionStorage.clear();
+  // rodando localmente, substituir por: /login.html
   window.location.replace('https://djehsantana.github.io/Clinica_Doctor_Family/login');
 });
 
