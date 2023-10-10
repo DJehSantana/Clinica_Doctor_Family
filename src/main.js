@@ -55,8 +55,6 @@ sendButton.addEventListener('click', function (event) {
 
     let updatedPatient = pacientes[indexPaciente];
 
-    console.log(updatedPatient);
-
     updatedPatient = {
       idCrud: updatedPatient.idCrud,
       nome: nome.value,
@@ -71,9 +69,7 @@ sendButton.addEventListener('click', function (event) {
     pacientes[indexPaciente] = updatedPatient;
 
     localStorage.setItem('pacientes', JSON.stringify(pacientes));
-    const result = updatePatient(updatedPatient.idCrud, updatedPatient);
-
-    console.log(result);
+    updatePatient(updatedPatient.idCrud, updatedPatient);
 
     registroPacientes.reset();
     return;
@@ -95,7 +91,6 @@ sendButton.addEventListener('click', function (event) {
   try {
     createPatient(novoPaciente).then((data) => {
       novoPaciente.idCrud = data._id;
-      console.log(novoPaciente);
     }).catch((error) => {
       //Caso a API do CRUD CRUD não esteja disponível, atribuirá um id aleatório
       if (!novoPaciente.idCrud) {
@@ -120,10 +115,11 @@ document.getElementById('patientsTable').addEventListener('click', function (e) 
   const pacientes = JSON.parse(localStorage.getItem('pacientes')) || [];
   const paciente = pacientes[rowIndex];
 
-  console.log(paciente.idCrud);
   getPatientById(paciente.idCrud).then((data) => {
     console.log(data);
-  })
+  }).catch((error) => {
+    console.log(error);
+  });
 
   openModal(paciente);
 });
@@ -132,14 +128,10 @@ setInterval(renderData, 5000);
 
 const deletePaciente = (cpf) => {
   const pacientes = JSON.parse(localStorage.getItem('pacientes')) || [];
-
-  console.log(pacientes);
   const paciente = pacientes.find(p => p.cpf === cpf);
 
   //Remove registro do CRUD CRUD
   const resp = deletePatient(paciente.idCrud);
-  console.log(resp);
-
   const updatedPacientes = pacientes.filter(paciente => paciente.cpf !== cpf);
   localStorage.setItem('pacientes', JSON.stringify(updatedPacientes));
   closeModal();
@@ -156,8 +148,6 @@ const updatePaciente = (cpf) => {
     alert('Paciente não encontrado!');
   }
 
-  console.log(paciente);
-
   const genero = paciente.genero == 'M' ? 'masculino' : 'feminino';
 
   // Preenche o formulário com os dados do paciente
@@ -168,8 +158,6 @@ const updatePaciente = (cpf) => {
   form.telefone.value = paciente.telefone;
   form.data_nascimento.value = paciente.dataNascimento;
   form.plano_saude.value = paciente.planoSaude;
-  
-  console.log(form[genero]);
   form[genero].checked = true;
 }
 

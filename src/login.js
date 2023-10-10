@@ -6,7 +6,6 @@ onInit();
 
 btnLogin.addEventListener('click', async () => {
   const {username, password} = document.forms.formLogin;
-  console.log(password);
   const result = await login(username.value, password.value);
   if(!result) {
     alert('Usuário ou Senha incorretos!');
@@ -27,7 +26,6 @@ async function createPasswordHash(password) {
 
 export async function register(username){
   const password = await createPasswordHash('admin');
-  //console.log(password);
   const data = {username, password}
   localStorage.setItem('authenticate', JSON.stringify(data));
 }
@@ -36,13 +34,8 @@ export async function login(username, password){
   const data = JSON.parse(localStorage.getItem('authenticate'));
   const hashedPassword = await createPasswordHash(password);
 
-  console.log(`hashedPassword: ${hashedPassword}`);
-  console.log(`data.password: ${data.password}`);
-  console.log(`data.username: ${data.username}`);
-
   if (hashedPassword == data.password && username == data.username) {
       const sessionToken = createSessionToken();
-      console.log(`sessionToken: ${sessionToken}`);
       sessionStorage.setItem('sessionToken', sessionToken);
       return true;
   } else {
